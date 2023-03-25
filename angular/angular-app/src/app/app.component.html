@@ -1,0 +1,81 @@
+<div class="row mt-5">
+  <div class="col-12">
+    <h1 class="mb-5 display-4">ngx-annotate-text demo</h1>
+
+    <ngx-annotate-text
+      [(annotations)]="annotations"
+      [removable]="true"
+      [text]="text"
+      annotationClass="my-annotation"
+      (clickAnnotation)="onClickAnnotation($event)"
+      (removeAnnotation)="onRemoveAnnotation($event)"
+      #annotateText
+    >
+    </ngx-annotate-text>
+  </div>
+</div>
+
+<div class="row mt-3">
+  <div class="col-12">
+    <button
+      type="button"
+      class="btn btn-primary me-2"
+      (click)="addAnnotation('SKILLS', '#0d6efd')"
+    >
+    SKILLS
+    </button>
+    <button
+      type="button"
+      class="btn btn-secondary me-2"
+      (click)="addAnnotation('EXPERIENCE', '#6c757d')"
+    >
+    EXPERIENCE
+    </button>
+    <button
+      type="button"
+      class="btn btn-success me-2"
+      (click)="addAnnotation('DIPLOMA', '#198754')"
+    >
+    DIPLOMA
+    </button>
+    <button
+      type="button"
+      class="btn btn-danger me-2"
+      (click)="addAnnotation('DIPLOMA MAJOR', '#dc3545')"
+    >
+    DIPLOMA MAJOR
+    </button>
+  </div>
+</div>
+
+<div class="row mb-5">
+  <div class="col-12 col-lg-6 mt-3">
+    <h2 class="mb-3 display-5">Annotations</h2>
+
+    <ul class="list-group" style="height: 15rem; overflow-y: auto">
+      <li class="list-group-item" *ngFor="let a of annotations.reverse()">
+        start: {{ a.startIndex }}, end: {{ a.endIndex }}, label: {{ a.label }}, text: "{{ a.text }}"
+      </li>
+    </ul>
+  </div>
+
+  <div class="col-12 col-lg-6 mt-3">
+    <h2 class="mb-3 display-5">Events</h2>
+
+    <ul class="list-group" style="height: 15rem; overflow-y: auto">
+      <li class="list-group-item" *ngFor="let e of events.reverse()">
+        {{ e }}
+      </li>
+    </ul>
+  </div>
+</div>
+<button
+      type="button"
+      (click)="postData()"
+    >
+    Post
+    </button>
+
+<app-label-list></app-label-list>
+
+<router-outlet></router-outlet>

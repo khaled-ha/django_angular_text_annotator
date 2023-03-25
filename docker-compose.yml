@@ -1,0 +1,38 @@
+version: '3'
+
+services:
+  ubia_db:
+    image: postgres
+    command: ["postgres", "-c", "log_statement=all"]
+    tty: true
+    stdin_open: true
+    ports:
+      - "5432:5432"
+    volumes:
+      - ubia_tes_db:/var/lib/postgresql/data/
+      - ./creds.json:/creds.json
+    environment:
+      - POSTGRES_USER=ubia_user
+      - POSTGRES_PASSWORD=ubia_password
+      - POSTGRES_DB=ubia_db
+  ubia:
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - ubia_db
+    volumes:
+      - ./:/ubia_test/
+    stdin_open: true
+    tty: true
+  ng:
+    container_name: ng
+    build: angular
+    # volumes:
+    #   - ./angular/angular-app:/usr/local/app/
+    ports:
+      - "8080:80"
+
+volumes:
+  node-modules:
+  ubia_tes_db:
